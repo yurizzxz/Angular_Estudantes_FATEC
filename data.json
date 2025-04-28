@@ -1,0 +1,24 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Eduardo Bobão",
+      "course": "Análise e Desenvolvimento de Problemas"
+    },
+    {
+      "id": 2,
+      "name": "Cristiano Ronaldo",
+      "course": "Futebol"
+    },
+    {
+      "id": 6,
+      "name": "caua",
+      "course": "enfermidade "
+    },
+    {
+      "id": 7,
+      "name": "Macacopez",
+      "course": "Burro de Sistemas"
+    }
+  ]
+}
