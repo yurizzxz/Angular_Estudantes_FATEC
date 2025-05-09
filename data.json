@@ -1,24 +1,19 @@
 {
   "students": [
     {
-      "id": 1,
-      "name": "Eduardo Bobão",
-      "course": "Análise e Desenvolvimento de Problemas"
+      "id": 8,
+      "name": "adfadsfad",
+      "course": "testeeee"
     },
     {
-      "id": 2,
-      "name": "Cristiano Ronaldo",
-      "course": "Futebol"
+      "id": 10,
+      "name": "aa",
+      "course": "ass"
     },
     {
-      "id": 6,
-      "name": "caua",
-      "course": "enfermidade "
-    },
-    {
-      "id": 7,
-      "name": "Macacopez",
-      "course": "Burro de Sistemas"
+      "id": 11,
+      "name": "adsfaadfaa",
+      "course": "afda"
     }
   ]
 }

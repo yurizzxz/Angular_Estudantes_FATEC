@@ -11,6 +11,7 @@
             type="text"
             class="form-control"
             id="inputName"
+            required
             aria-describedby="nameHelp"
           />
           <div id="nameHelp" class="form-text">Insira seu nome completo</div>
@@ -22,11 +23,16 @@
             type="text"
             class="form-control"
             id="inputCourse"
+            required
             aria-describedby="courseHelp"
           />
           <div id="courseHelp" class="form-text">Insira o nome do curso</div>
         </div>
-        <button (click)="save()" type="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex gap-1">
+        <button (click)="save()" *ngIf="!isEditing" type="submit" class="btn btn-primary">Salvar</button>
+        <button (click)="onConfirmUpdate()" *ngIf="isEditing" type="submit" class="btn btn-secondary">Alterar</button>
+        <button (click)="clear()"  type="submit" class="btn btn-secondary">Clear</button>
+      </div>
       </form>
 
       <div class="mt-5">
@@ -46,7 +52,8 @@
               <th scope="row">{{s.id}}</th>
               <td>{{s.name}}</td>
               <td>{{s.course}}</td>
-              <td><button (click)="delete(s)" class="btn btn-danger">Excluir</button></td>
+              <td><button (click)="onClickDelete(s)" class="btn btn-danger">Excluir</button></td>
+              <td><button (click)="onClickUpdate(s)" class="btn btn-secondary">Update</button></td>
             </tr>
           </tbody>
         </table>

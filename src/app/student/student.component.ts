@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class StudentComponent implements OnInit {
   students: Student[] = [];
-
+  isEditing: boolean = false;
   formGroupStudent: FormGroup;
 
   constructor(
@@ -45,8 +45,26 @@ export class StudentComponent implements OnInit {
     });
   }
 
+  onClickUpdate(student: Student) {
+    this.formGroupStudent.setValue(student);
+    this.isEditing = true;
+  }
 
-  delete(student: Student) {
+  onConfirmUpdate() {
+    this.service.update(this .formGroupStudent.value).subscribe({
+      next: () => {
+        this.loadStudents();
+        this.formGroupStudent.reset();
+        this.isEditing = false;
+      },
+    });
+  }
+
+  clear() {
+    this.formGroupStudent.reset();
+  }
+
+  onClickDelete(student: Student) {
     this.service.delete(student).subscribe({
       next: () => this.loadStudents(),
     });
