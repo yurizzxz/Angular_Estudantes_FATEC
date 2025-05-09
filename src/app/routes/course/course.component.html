@@ -1,1 +1,252 @@
-<p>course works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-7 mx-auto mt-5">
+      <h2>Cadastro de Cursos</h2>
+      <form [formGroup]="formGroupCourse">
+        <div class="mb-3">
+          <label for="inputName" class="form-label">Nome do Curso</label>
+          <input
+            formControlName="name"
+            type="text"
+            class="form-control"
+            id="inputName"
+            aria-describedby="nameHelp"
+          />
+          <div id="nameHelp" class="form-text">
+            Insira o nome completo do curso
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="inputLevel" class="form-label">Nível do Curso</label>
+          <div id="inputLevel">
+            <div class="form-check">
+              <input
+                formControlName="level"
+                class="form-check-input"
+                type="radio"
+                name="level"
+                value="Básico"
+                id="levelBásico"
+              />
+              <label class="form-check-label" for="levelBásico">Básico</label>
+            </div>
+            <div class="form-check">
+              <input
+                formControlName="level"
+                class="form-check-input"
+                type="radio"
+                name="level"
+                value="Intermediário"
+                id="levelIntermediário"
+              />
+              <label class="form-check-label" for="levelIntermediário"
+                >Intermediário</label
+              >
+            </div>
+            <div class="form-check">
+              <input
+                formControlName="level"
+                class="form-check-input"
+                type="radio"
+                name="level"
+                value="Avançado"
+                id="levelAvançado"
+              />
+              <label class="form-check-label" for="levelAvançado"
+                >Avançado</label
+              >
+            </div>
+          </div>
+          <div id="levelHelp" class="form-text">Selecione o nível do curso</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="inputCategories" class="form-label">Categorias</label>
+          <input
+            formControlName="categories"
+            type="text"
+            class="form-control"
+            id="inputCategories"
+            aria-describedby="categoriesHelp"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="inputDuration" class="form-label"
+            >Duração (em horas)</label
+          >
+          <input
+            formControlName="duration"
+            type="number"
+            class="form-control"
+            id="inputDuration"
+            aria-describedby="durationHelp"
+          />
+          <div id="durationHelp" class="form-text">
+            Insira a duração do curso em horas
+          </div>
+        </div>
+        <div class="mb-3 form-check">
+          <input
+            formControlName="active"
+            type="checkbox"
+            class="form-check-input"
+            id="inputActive"
+          />
+          <label class="form-check-label" for="inputActive">Curso Ativo</label>
+        </div>
+        <button (click)="save()" type="submit" class="btn btn-primary">
+          Cadastrar Curso
+        </button>
+      </form>
+
+      <div class="mt-5">
+        <h3>Cursos Cadastrados</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Nível</th>
+              <th scope="col">Duração</th>
+              <th scope="col">Ativo</th>
+              <th scope="col">Categorias</th>
+              <th scope="col">Remover</th>
+              <th scope="col">Atualizar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of courses">
+              <th scope="row">{{ c.id }}</th>
+              <td>{{ c.name }}</td>
+              <td>{{ c.level }}</td>
+
+              <td>{{ c.duration }}</td>
+              <td>{{ c.active ? "Sim" : "Não" }}</td>
+              <td>{{ c.categories }}</td>
+              <td>
+                <button (click)="delete(c)" class="btn btn-danger">
+                  Excluir
+                </button>
+              </td>
+              <td>
+                <button (click)="openUpdateModal(c)" class="btn btn-primary">
+                  Atualizar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="modalOpen" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Atualizar Curso</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formGroupCourse">
+          <div class="mb-3">
+            <label for="inputNameModal" class="form-label">Nome do Curso</label>
+            <input formControlName="name" type="text" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="inputLevelModal" class="form-label"
+              >Nível do Curso</label
+            >
+            <div id="inputLevelModal">
+              <div class="form-check">
+                <input
+                  formControlName="level"
+                  class="form-check-input"
+                  type="radio"
+                  name="level"
+                  value="Básico"
+                  id="levelBásicoModal"
+                />
+                <label class="form-check-label" for="levelBásicoModal"
+                  >Básico</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  formControlName="level"
+                  class="form-check-input"
+                  type="radio"
+                  name="level"
+                  value="Intermediário"
+                  id="levelIntermediárioModal"
+                />
+                <label class="form-check-label" for="levelIntermediárioModal"
+                  >Intermediário</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  formControlName="level"
+                  class="form-check-input"
+                  type="radio"
+                  name="level"
+                  value="Avançado"
+                  id="levelAvançadoModal"
+                />
+                <label class="form-check-label" for="levelAvançadoModal"
+                  >Avançado</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="inputCategoriesModal" class="form-label"
+              >Categorias</label
+            >
+            <input
+              formControlName="categories"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputDurationModal" class="form-label"
+              >Duração (em horas)</label
+            >
+            <input
+              formControlName="duration"
+              type="number"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3 form-check">
+            <input
+              formControlName="active"
+              type="checkbox"
+              class="form-check-input"
+              id="inputActiveModal"
+            />
+            <label class="form-check-label" for="inputActiveModal"
+              >Curso Ativo</label
+            >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex gap-1">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="save()">
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

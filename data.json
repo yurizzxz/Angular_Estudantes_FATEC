@@ -14,11 +14,19 @@
   "courses": [
     {
       "id": 1,
-      "name": "Engenharia da Computação"
+      "name": "Engenharia da Computação",
+      "level": "Intermediário",
+      "categories": "Tecnologia",
+      "duration": 300,
+      "active": true
     },
     {
       "id": 2,
-      "name": "Matemática"
+      "name": "adsfasd",
+      "level": "Avançado",
+      "categories": "adsfa",
+      "duration": 300,
+      "active": true
     }
   ]
 }
