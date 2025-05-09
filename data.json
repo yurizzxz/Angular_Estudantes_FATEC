@@ -1,29 +1,24 @@
 {
   "students": [
     {
-      "id": 1,
-      "name": "Ana Maria",
-      "course": "Computação"
-    },
-    {
       "id": 2,
-      "name": "Fernanda Silva",
+      "name": "Fernanda Silvaa",
       "course": "Computação"
     },
     {
       "id": 3,
       "name": "Marcela Rosa",
       "course": "Matemática"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "name": "Engenharia da Computação"
     },
     {
-      "id": 4,
-      "name": "1",
-      "course": "1"
-    },
-    {
-      "id": 5,
-      "name": "3",
-      "course": "3"
+      "id": 2,
+      "name": "Matemática"
     }
   ]
 }
