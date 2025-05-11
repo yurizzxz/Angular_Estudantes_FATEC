@@ -1,72 +1,71 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from '../student';
-import { HttpClient } from '@angular/common/http';
-import { StudentService } from '../student.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'; // Importa decorador Component e interface OnInit
+import { Student } from '../student'; // Importa a interface Student
+import { StudentService } from '../student.service'; // Importa o serviço de estudantes
+import { FormBuilder, FormGroup } from '@angular/forms'; // Importa classes para manipulação de formulários
 
 @Component({
-  selector: 'app-student',
-  standalone: false,
-  templateUrl: './student.component.html',
-  styleUrl: './student.component.css',
+  selector: 'app-student', // Seletor do componente
+  standalone: false, // Define que não é um componente standalone
+  templateUrl: './student.component.html', // Caminho do template HTML
+  styleUrl: './student.component.css', // Caminho do CSS
 })
-export class StudentComponent implements OnInit {
-  students: Student[] = [];
-  isEditing: boolean = false;
-  formGroupStudent: FormGroup;
+export class StudentComponent implements OnInit { // Define o componente Student
+  students: Student[] = []; // Armazena a lista de estudantes
+  isEditing: boolean = false; // Indica se está em modo de edição
+  formGroupStudent: FormGroup; // Representa o formulário reativo
 
-  constructor(
-    private service: StudentService,
-    private formBuilder: FormBuilder
+  constructor( // Construtor do componente
+    private service: StudentService, // Injeta o serviço de estudantes
+    private formBuilder: FormBuilder // Injeta o construtor de formulários
   ) {
-    this.formGroupStudent = formBuilder.group({
-      id: [''],
-      name: [''],
-      course: [''],
+    this.formGroupStudent = formBuilder.group({ // Inicializa o formulário com campos vazios
+      id: [''], // Campo id
+      name: [''], // Campo name
+      course: [''], // Campo course
     });
   }
 
-  ngOnInit(): void {
-    this.loadStudents();
+  ngOnInit(): void { // Método executado ao iniciar o componente
+    this.loadStudents(); // Carrega os estudantes ao iniciar
   }
 
-  loadStudents() {
-    this.service.getAll().subscribe({
-      next: (json) => (this.students = json),
+  loadStudents() { // Carrega todos os estudantes
+    this.service.getAll().subscribe({ // Chama o serviço para buscar todos
+      next: (json) => (this.students = json), // Atribui a resposta à lista de estudantes
     });
   }
 
-  save() {
-    this.service.save(this.formGroupStudent.value).subscribe({
-      next: (json) => {
-        this.students.push(json);
-        this.formGroupStudent.reset();
+  save() { // Salva um novo estudante
+    this.service.save(this.formGroupStudent.value).subscribe({ // Envia os dados do formulário para salvar
+      next: (json) => { // Após salvar com sucesso
+        this.students.push(json); // Adiciona o novo estudante à lista
+        this.formGroupStudent.reset(); // Reseta o formulário
       },
     });
   }
 
-  onClickUpdate(student: Student) {
-    this.formGroupStudent.setValue(student);
-    this.isEditing = true;
+  onClickUpdate(student: Student) { // Ao clicar em editar um estudante
+    this.formGroupStudent.setValue(student); // Preenche o formulário com os dados
+    this.isEditing = true; // Ativa o modo de edição
   }
 
-  onConfirmUpdate() {
-    this.service.update(this .formGroupStudent.value).subscribe({
-      next: () => {
-        this.loadStudents();
-        this.formGroupStudent.reset();
-        this.isEditing = false;
+  onConfirmUpdate() { // Confirma a atualização de um estudante
+    this.service.update(this.formGroupStudent.value).subscribe({ // Chama o serviço para atualizar
+      next: () => { // Após atualizar com sucesso
+        this.loadStudents(); // Recarrega a lista de estudantes
+        this.formGroupStudent.reset(); // Reseta o formulário
+        this.isEditing = false; // Sai do modo de edição
       },
     });
   }
 
-  clear() {
-    this.formGroupStudent.reset();
+  clear() { // Limpa o formulário
+    this.formGroupStudent.reset(); // Reseta os campos do formulário
   }
 
-  onClickDelete(student: Student) {
-    this.service.delete(student).subscribe({
-      next: () => this.loadStudents(),
+  onClickDelete(student: Student) { // Ao clicar em deletar um estudante
+    this.service.delete(student).subscribe({ // Chama o serviço para deletar
+      next: () => this.loadStudents(), // Recarrega a lista após deletar
     });
   }
 }
